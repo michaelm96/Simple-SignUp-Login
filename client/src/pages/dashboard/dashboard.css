@@ -1,0 +1,10 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.dashIcon {
+    background-color: white;
+    border-radius: 15px;
+}
