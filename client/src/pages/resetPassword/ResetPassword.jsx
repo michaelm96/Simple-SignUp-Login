@@ -37,16 +37,20 @@ function ResetPassword() {
 
   const init = async () => {
     try {
+      // to decide whether old password field should be disabled, just in case user that login through google/facebook want to change password.
       const result = await axios.get(`${baseURL}/oldPass`, {
         headers: {
           authentication: cookies.user.accessToken,
         },
       });
+
+      // to get data of current user
       const user = await axios.get(`${baseURL}/user`, {
         headers: {
           authentication: cookies.user.accessToken,
         },
       });
+
       setUser(user.data.response);
       setOldPassFieldDisabled(result.data);
 
@@ -74,7 +78,9 @@ function ResetPassword() {
 
   const submit = async () => {
     try {
+      // new password should be match with the re-enter field
       const require1 = matchingPass(newPass, newPass2);
+      // password should fulfill the requirements
       const require2 = regexCheck(newPass);
       if (require1 && require2) {
         const res = await axios.put(

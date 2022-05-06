@@ -25,6 +25,7 @@ function Resend() {
 
   const resend = async () => {
     setLoading(true);
+    // should set some delay so user can't ddos the server by keep requesting sending email
     if (disable) {
       snackbar(true, "error", "Please wait for 5 seconds");
       timeout();

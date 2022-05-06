@@ -103,8 +103,6 @@ class UserController {
         JSON.stringify({ name: user.name, email: user.email, id: user.id })
       );
 
-      console.log(encode, "@105");
-
       const template = handlebars.compile(html);
       const replacements = {
         link: feLink + "/redirect/" + encode,
@@ -287,6 +285,7 @@ class UserController {
         });
       }
 
+      // when the user signed up using google/facebook their password is equal to oauth
       if (user.password === "oauth") {
         return res.status(200).json({
           message:
@@ -382,12 +381,6 @@ class UserController {
         };
       }
 
-      // return res.status(200).json({
-      //   message: "Successfully verify user",
-      //   error: false,
-      //   url: `${feLink}/redirect/${encode}`,
-      //   // response: user,
-      // });
     } catch (error) {
       throw error;
     }
@@ -396,6 +389,7 @@ class UserController {
   static async checkHash(req, res) {
     const { hash } = req.body;
     try {
+      // decrypt hash to get user data
       const decryptedString = cryptr.decrypt(hash);
       const user = await JSON.parse(decryptedString);
 
@@ -423,6 +417,7 @@ class UserController {
     const { id } = req.userData;
     const { property, value } = req.body;
     try {
+      // if the user register using regular email and password do this checking below
       if (property === "password" && value.old !== "oauth") {
         const user = await User.findOne({
           where: { id },
@@ -434,6 +429,7 @@ class UserController {
           });
         }
       }
+      //update the data
       await User.update(
         { [property]: value.new },
         { where: { id }, individualHooks: true }

@@ -25,6 +25,7 @@ function Dashboard() {
 
   const init = async () => {
     try {
+      // get list of users that already signed up
       const users = await axios.get(`${baseURL}/users`, {
         headers: {
           authentication: cookies.user.accessToken,
@@ -35,11 +36,15 @@ function Dashboard() {
           authentication: cookies.user.accessToken,
         },
       });
+
+      // sort list of user based on id
       const sorted = users.data.response.sort((a, b) => {
         return a.id < b.id ? -1 : 1;
       });
       setUsers(sorted);
       setStatistic(statistic.data.response);
+
+      // get amount of users that have active session in the last 24 hours
       const activeSessions = statistic.data.response.filter(
         (ele) => moment(ele.lastSession) > moment().subtract(1, "days").toDate()
       );

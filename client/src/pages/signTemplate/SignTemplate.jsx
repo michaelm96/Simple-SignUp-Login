@@ -28,6 +28,7 @@ function SignTemplate(props) {
   const baseURL = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
 
+  // callback for google login/ facebook login
   const callback = async (res) => {
     try {
       let result;
@@ -119,6 +120,7 @@ function SignTemplate(props) {
     setOpen(open);
   };
 
+  // checking password should fulfill the requirement
   const regexCheck = (str) => {
     const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/;
     if (!pattern.test(str)) {
@@ -214,7 +216,7 @@ function SignTemplate(props) {
           }}
           style={{ color: "white" }}
         >
-          Wanna sign up? Register here
+          Wanna sign up? Sign up here
         </Link>
       ) : (
         <Link
