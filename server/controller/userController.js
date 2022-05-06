@@ -33,7 +33,8 @@ class UserController {
 
       if (isExist) {
         return res.status(400).json({
-          message: "You have registered, please check your email to verify your account, or try to login",
+          message:
+            "You have registered, please check your email to verify your account, or try to login",
           error: false,
         });
       }
@@ -102,6 +103,8 @@ class UserController {
         JSON.stringify({ name: user.name, email: user.email, id: user.id })
       );
 
+      console.log(encode, "@105");
+
       const template = handlebars.compile(html);
       const replacements = {
         link: feLink + "/redirect/" + encode,
@@ -164,7 +167,7 @@ class UserController {
         { where: { id: user.id } }
       );
       const access_token = generateToken(user);
-      return res.status(201).json({
+      return res.status(200).json({
         message: "Login Succeeed",
         error: false,
         response: {
@@ -324,7 +327,7 @@ class UserController {
           "createdAt",
         ],
       });
-      return res.status(201).json({
+      return res.status(200).json({
         message: "Successfully retrieve data",
         error: false,
         response: allUser,
@@ -399,7 +402,7 @@ class UserController {
       await UserController._verify(user.id);
 
       const access_token = generateToken(user);
-      return res.status(201).json({
+      return res.status(200).json({
         message: "Decode Succeed",
         error: false,
         response: {
