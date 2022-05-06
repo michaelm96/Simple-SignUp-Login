@@ -26,7 +26,7 @@ function Profile() {
     try {
       const user = await axios.get(`${baseURL}/user`, {
         headers: {
-          access_token: cookies.user.accessToken,
+          authentication: cookies.user.accessToken,
         },
       });
       setUser(user.data.response);
@@ -71,7 +71,7 @@ function Profile() {
         },
         {
           headers: {
-            access_token: cookies.user.accessToken,
+            authentication: cookies.user.accessToken,
           },
         }
       );

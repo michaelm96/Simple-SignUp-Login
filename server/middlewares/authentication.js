@@ -3,7 +3,7 @@ const secretKey = process.env.SECRET_KEY;
 const { User } = require("../models");
 
 const authentication = async (req, res, next) => {
-  const { access_token } = req.headers;
+  const access_token = req.headers.authentication;
   if (!access_token) {
     return res.status(403).json({
       message: "Forbidden Access",

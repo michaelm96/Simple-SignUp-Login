@@ -39,12 +39,12 @@ function ResetPassword() {
     try {
       const result = await axios.get(`${baseURL}/oldPass`, {
         headers: {
-          access_token: cookies.user.accessToken,
+          authentication: cookies.user.accessToken,
         },
       });
       const user = await axios.get(`${baseURL}/user`, {
         headers: {
-          access_token: cookies.user.accessToken,
+          authentication: cookies.user.accessToken,
         },
       });
       setUser(user.data.response);
@@ -88,7 +88,7 @@ function ResetPassword() {
           },
           {
             headers: {
-              access_token: cookies.user.accessToken,
+              authentication: cookies.user.accessToken,
             },
           }
         );
